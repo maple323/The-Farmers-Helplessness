@@ -270,6 +270,7 @@ button:active {
 }
 .internet-body {
     display: block;
+    overflow: auto;
 }
 .wechat-contact {
     width: 100%;

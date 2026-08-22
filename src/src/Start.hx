@@ -274,6 +274,7 @@ class Start implements IJSAsync {
 					i_button.classList.add("desktop-icon-button");
 					i_button.style.width = "6cqi";
 					i_button.style.height = "8cqb";
+					i_button.style.wordBreak = "break-word";
 					i_button.innerHTML = '
                     <img src="${img}" style="height: 5cqb;">
                     <span style="font-size: 2cqb; color: black;">${file.name}</span>
@@ -687,6 +688,9 @@ class Start implements IJSAsync {
 				';
 				}
 				wc.appendChild(div);
+				window.setTimeout(() -> {
+					wc.scrollTop = wc.scrollHeight;
+				}, 300);
 				return;
 			}
 		} else {
