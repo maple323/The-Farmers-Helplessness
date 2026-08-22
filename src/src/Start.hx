@@ -664,37 +664,34 @@ class Start implements IJSAsync {
 		if (current_wechat_m == -1)
 			return;
 		WECHAT_RECORD[current_wechat_m].record.push({name: name, send_back: send_back, content: content});
-		if (current_wechat_m == current_wechat) {
-			final win = Lambda.find(State.windows, (w) -> w.app == "wechat");
-			if (win != null) {
-				final wc = cast(win.el.querySelector(".wechat-screen"), DivElement);
-				final div = cast(document.createElement("div"), DivElement);
-				div.classList.add("wechat-record");
-				if (send_back) {
-					div.style.alignItems = "flex-end";
-					div.innerHTML = '
-    				<div style="font-size: 1.5cqb;">${getLangValue("contact_me")}</div>
-    				<div style="padding: 0.5cqb 0.3cqi; border: 0.1cqb solid #009900; background-color: #00FF00; width: auto; height: auto; font-size: 1cqi; display: flex; align-items: center; justify-content: flex-end;">
-    				    ${content}
-    				</div>
-    				';
-				} else {
-					div.style.alignItems = "flex-start";
-					div.innerHTML = '
+		final win = Lambda.find(State.windows, (w) -> w.app == "wechat");
+		if (current_wechat_m == current_wechat && win != null) {
+			final wc = cast(win.el.querySelector(".wechat-screen"), DivElement);
+			final div = cast(document.createElement("div"), DivElement);
+			div.classList.add("wechat-record");
+			if (send_back) {
+				div.style.alignItems = "flex-end";
+				div.innerHTML = '
+				<div style="font-size: 1.5cqb;">${getLangValue("contact_me")}</div>
+				<div style="padding: 0.5cqb 0.3cqi; border: 0.1cqb solid #009900; background-color: #00FF00; width: auto; height: auto; font-size: 1cqi; display: flex; align-items: center; justify-content: flex-end;">
+				    ${content}
+				</div>
+				';
+			} else {
+				div.style.alignItems = "flex-start";
+				div.innerHTML = '
 				<div style="font-size: 1.5cqb;">${name}</div>
 				<div style="padding: 0.5cqb 0.3cqi; border: 0.1cqb solid #666666; background-color: #CCCCCC; width: auto; height: auto; font-size: 1cqi; display: flex; align-items: center; justify-content: flex-start;">
 				    ${content}
 				</div>
 				';
-				}
-				wc.appendChild(div);
-				window.setTimeout(() -> {
-					wc.scrollTop = wc.scrollHeight;
-				}, 300);
-				return;
 			}
-		} else {
-			showToast(send_back ? getLangValue("contact_me") : name, content, "assets/images/icons/wechat.png", duration);
+			wc.appendChild(div);
+			window.setTimeout(() -> {
+				wc.scrollTop = wc.scrollHeight;
+			}, 300);
+			return;
 		}
+		showToast(send_back ? getLangValue("contact_me") : name, content, "assets/images/icons/wechat.png", duration);
 	}
 }
