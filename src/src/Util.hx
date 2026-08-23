@@ -353,10 +353,23 @@ class Util {
 		return 100 / wildReal * inlineReal;
 	}
 
+	public static function focusApp(app:String):Bool {
+		final win = Lambda.find(State.windows, (w) -> w.app == app);
+		if (win == null)
+			return false;
+		if (win.isMinimized) {
+			win.isMinimized = false;
+			applyWindowStyles(win);
+		}
+		bringToFront(win.id);
+		updateTaskbar();
+		return true;
+	}
+
 	public static function createWindow(index:Int, options:WindowOption):Int {
 		final app_arr = ["my_computer", "ie", "recycle", "wechat", "settings"];
 		final app = app_arr[index] ?? options.app ?? "App";
-		final existing = Lambda.find(State.windows, (w) -> w.app == app && !w.isMinimized);
+		final existing = Lambda.find(State.windows, (w) -> w.app == app);
 		if (existing != null) {
 			existing.isMinimized = false;
 			existing.el.style.display = "flex";
