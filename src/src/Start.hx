@@ -223,6 +223,8 @@ class Start implements IJSAsync {
 		SCREEN.appendChild(WeChatButton);
 		SCREEN.appendChild(SettingsButton);
 		MyComputerButton.addEventListener("dblclick", () -> {
+			if (focusApp("my_computer"))
+				return;
 			createWindow(0, {
 				content: '
 			<div class="window-screen" style="padding: 0 1cqi;">
@@ -322,6 +324,8 @@ class Start implements IJSAsync {
 			});
 		});
 		InternetExplorerButton.addEventListener("dblclick", () -> {
+			if (focusApp("ie"))
+				return;
 			createWindow(1, {
 				content: '
 						<div class="window-screen" style="padding: 0 1cqi;">
@@ -370,6 +374,8 @@ class Start implements IJSAsync {
 			body.innerHTML = getLangValue("internet_empty");
 		});
 		RecycleButton.addEventListener("dblclick", () -> {
+			if (focusApp("recycle"))
+				return;
 			createWindow(2, {
 				content: '
 				<div class="window-screen" style="align-items: center; justify-content: center;">
@@ -379,6 +385,8 @@ class Start implements IJSAsync {
 			});
 		});
 		WeChatButton.addEventListener("dblclick", () -> {
+			if (focusApp("wechat"))
+				return;
 			createWindow(3, {
 				content: '
 				<div class="window-screen" style="flex-direction: row;">
@@ -398,6 +406,8 @@ class Start implements IJSAsync {
 			SCREEN.querySelector(".wechat-screen").insertAdjacentElement("beforebegin", d);
 		});
 		SettingsButton.addEventListener("dblclick", () -> {
+			if (focusApp("settings"))
+				return;
 			createWindow(4, {
 				content: '
 				<div class="window-screen" style="padding: 1cqb 1cqi;">
@@ -500,7 +510,7 @@ class Start implements IJSAsync {
 			keyword: "horse_crazy",
 			app: "Surveillance",
 		});
-		while (wechat_level != 1) {
+		while (wechat_level < 1) {
 			jsawait(MonitorWechatLevel());
 		}
 		jsawait(sleep(6000));
@@ -542,7 +552,7 @@ class Start implements IJSAsync {
 		showWechatToast(getLangValue("contact_manager_horse"), getLangValue("wechat_helper_call_19"));
 		jsawait(sleep(4000));
 		showWechatToast("", getLangValue("wechat_hint_call_1"), false, true);
-		while (wechat_level != 2) {
+		while (wechat_level < 2) {
 			jsawait(MonitorWechatLevel());
 		}
 		jsawait(sleep(16000));
@@ -591,7 +601,7 @@ class Start implements IJSAsync {
 			keyword: "family",
 			app: "family",
 		});
-		while (wechat_level != 3) {
+		while (wechat_level < 3) {
 			jsawait(MonitorWechatLevel());
 		}
 		jsawait(sleep(6000));
